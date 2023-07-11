@@ -1,8 +1,8 @@
 // date type
 export interface dateType {
   year: number;
-  month: number;
-  day: number;
+  month: string;
+  date: number;
 }
 
 // post type

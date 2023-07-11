@@ -19,16 +19,16 @@ const postSchema = new Schema<postType>({
   published: {
     type: {
       year: Number,
-      month: Number,
-      day: Number,
+      month: String,
+      date: Number,
     },
     required: [true, "Published date is required"],
   },
   lastUpdated: {
     type: {
       year: Number,
-      month: Number,
-      day: Number,
+      month: String,
+      date: Number,
     },
     required: [true, "Last updated date is required"],
   },
