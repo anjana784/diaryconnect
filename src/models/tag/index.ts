@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
+import { tagType } from "types";
 
-export const tagSchema = new Schema({
+export const tagSchema = new Schema<tagType>({
   name: {
     type: String,
     required: [true, "Tag name is required"],
@@ -13,6 +14,6 @@ export const tagSchema = new Schema({
   },
 });
 
-const Tag = model("Tag", tagSchema);
+const Tag = model<tagType>("Tag", tagSchema);
 
 export default Tag;

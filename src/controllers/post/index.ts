@@ -4,7 +4,7 @@ import Post from "./../../models/post";
 // get all posts
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    console.log("get all post");
+    console.log("GET:/post");
     const posts = await Post.find({});
     res.status(200).json({
       staus: "Success get posts",
@@ -21,7 +21,7 @@ export const getAllPosts = async (req: Request, res: Response) => {
 // get a post
 export const getPost = async (req: Request, res: Response) => {
   try {
-    console.log("get post");
+    console.log("GET:/post/:id");
     const post = await Post.findById(req.params.id);
     res.status(200).json({
       staus: "Success get post",
@@ -37,7 +37,7 @@ export const getPost = async (req: Request, res: Response) => {
 // create a post
 export const createPost = async (req: Request, res: Response) => {
   try {
-    console.log("create post");
+    console.log("POST:/post");
     res.status(200).json({
       staus: "Success",
     });
@@ -51,7 +51,7 @@ export const createPost = async (req: Request, res: Response) => {
 // update a post
 export const updatePost = async (req: Request, res: Response) => {
   try {
-    console.log("update post");
+    console.log("PATCH:/post/:id");
     res.status(200).json({
       staus: "Success",
     });
@@ -63,7 +63,7 @@ export const updatePost = async (req: Request, res: Response) => {
 // delete a post
 export const deletePost = async (req: Request, res: Response) => {
   try {
-    console.log("delete post");
+    console.log("DELETE:/post/:id");
     res.status(200).json({
       staus: "Success",
     });

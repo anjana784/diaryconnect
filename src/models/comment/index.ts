@@ -1,16 +1,17 @@
 import { Schema, model } from "mongoose";
 import { userSchema } from "./../../models/user";
+import { commentType } from "types";
 
-export const commentSchema = new Schema({
+export const commentSchema = new Schema<commentType>({
   user: userSchema,
   content: String,
   date: {
     year: Number,
-    month: Number,
-    day: Number,
+    month: String,
+    date: Number,
   },
 });
 
-const Comment = model("Comment", commentSchema);
+const Comment = model<commentType>("Comment", commentSchema);
 
 export default Comment;

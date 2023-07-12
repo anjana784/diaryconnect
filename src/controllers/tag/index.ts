@@ -4,7 +4,7 @@ import Tag from "./../../models/tag";
 // get all tags
 export const getAllTags = async (req: Request, res: Response) => {
   try {
-    console.log("get all tags");
+    console.log("GET:/tag");
     const tags = await Tag.find({});
     res.status(200).json({
       staus: "Success get tags",
@@ -21,7 +21,7 @@ export const getAllTags = async (req: Request, res: Response) => {
 // get a tag
 export const getTag = async (req: Request, res: Response) => {
   try {
-    console.log("get tag");
+    console.log("GET:/tag/:id");
     const tag = await Tag.findById(req.params.id);
     res.status(200).json({
       staus: "Success get tag",
@@ -37,12 +37,12 @@ export const getTag = async (req: Request, res: Response) => {
 // create a tag
 export const createTag = async (req: Request, res: Response) => {
   try {
-    console.log("create tag");
+    console.log("POST:/tag");
+    const result = await Tag.create(req.body);
     res.status(200).json({
       staus: "Success",
     });
-    const ress = await Tag.create(req.body);
-    console.log(ress);
+    console.log(result);
   } catch (err) {
     console.log(err);
   }
@@ -51,7 +51,11 @@ export const createTag = async (req: Request, res: Response) => {
 // update a tag
 export const updateTag = async (req: Request, res: Response) => {
   try {
-    console.log("update tag");
+    console.log("PATCH:/tag/:id");
+    const result = await Tag.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
     res.status(200).json({
       staus: "Success",
     });
@@ -64,7 +68,8 @@ export const updateTag = async (req: Request, res: Response) => {
 
 export const deleteTag = async (req: Request, res: Response) => {
   try {
-    console.log("delete tag");
+    console.log("DELETE:/tag/:id");
+    await Tag.findByIdAndDelete(req.params.id);
     res.status(200).json({
       staus: "Success",
     });

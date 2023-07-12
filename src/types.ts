@@ -26,8 +26,8 @@ export interface postType {
 // user type
 export interface userType {
   username: string;
-  password: string;
   email: string;
+  password: string;
 }
 
 // comment type
