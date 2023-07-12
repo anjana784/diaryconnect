@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { commentSchema } from "./../../models/comment";
 import { tagSchema } from "./../../models/tag";
-import { postType } from "types";
+import { postType } from "utils/types";
 
 const postSchema = new Schema<postType>({
   title: {

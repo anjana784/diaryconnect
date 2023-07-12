@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { tagType } from "types";
+import { tagType } from "utils/types";
 
 export const tagSchema = new Schema<tagType>({
   name: {

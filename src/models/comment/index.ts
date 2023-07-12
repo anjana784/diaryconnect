@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { userSchema } from "./../../models/user";
-import { commentType } from "types";
+import { commentType } from "utils/types";
 
 export const commentSchema = new Schema<commentType>({
   user: userSchema,
