@@ -1,4 +1,6 @@
 import { Schema, model } from "mongoose";
+import { commentSchema } from "./../../models/comment";
+import { tagSchema } from "./../../models/tag";
 import { postType } from "types";
 
 const postSchema = new Schema<postType>({
@@ -36,24 +38,8 @@ const postSchema = new Schema<postType>({
     type: String,
     required: [true, "Content is required"],
   },
-  comments: {
-    type: [
-      {
-        user: {
-          username: String,
-          password: String,
-          email: String,
-        },
-        content: String,
-        date: {
-          year: Number,
-          month: Number,
-          day: Number,
-        },
-      },
-    ],
-    default: [],
-  },
+  tags: [tagSchema],
+  comments: [commentSchema],
 });
 
 const Post = model<postType>("Post", postSchema);

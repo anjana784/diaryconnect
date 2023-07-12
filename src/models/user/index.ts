@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { userType } from "types";
 
-const userSchema = new Schema<userType>({
+export const userSchema = new Schema<userType>({
   username: {
     type: String,
     required: [true, "Username is required"],

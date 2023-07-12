@@ -5,6 +5,12 @@ export interface dateType {
   date: number;
 }
 
+// tag type
+export interface tagType {
+  name: string;
+  slug: string;
+}
+
 // post type
 export interface postType {
   title: string;
@@ -13,6 +19,7 @@ export interface postType {
   published: dateType;
   lastUpdated: dateType;
   content: string;
+  tags: tagType[];
   comments: commentType[];
 }
 
