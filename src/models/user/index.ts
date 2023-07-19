@@ -16,6 +16,10 @@ export const userSchema = new Schema<userType>({
     required: [true, "Email is required"],
     unique: true,
   },
+  roll: {
+    type: String,
+    default: "user",
+  },
 });
 
 const User = model<userType>("User", userSchema);

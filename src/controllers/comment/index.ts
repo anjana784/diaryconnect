@@ -38,3 +38,44 @@ export const postComment = async (req: Request, res: Response) => {
     console.log(err);
   }
 };
+
+// update a comment
+export const updateComment = async (req: Request, res: Response) => {
+  try {
+    console.log("PUT:/post/:id/comment/:commentId");
+
+    // get comment by id
+    const comment = await Comment.findById(req.params.commentId);
+
+    // update comment
+    await Comment.findByIdAndUpdate(req.params.commentId, req.body);
+
+    res.status(200).json({
+      staus: "Success",
+    });
+
+    console.log(comment);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// delete a comment
+export const deleteComment = async (req: Request, res: Response) => {
+  try {
+    console.log("DELETE:/post/:id/comment/:commentId");
+
+    // get comment by id
+    const comment = await Comment.findById(req.params.commentId);
+    console.log(comment);
+
+    // delete comment
+    await Comment.findByIdAndDelete(req.params.commentId);
+
+    res.status(200).json({
+      staus: "Success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
