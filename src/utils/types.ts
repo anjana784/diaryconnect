@@ -28,7 +28,7 @@ export interface userType {
   username: string;
   email: string;
   password: string;
-  roll: string;
+  roll: "user" | "admin";
 }
 
 // comment type

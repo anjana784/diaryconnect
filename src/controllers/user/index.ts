@@ -31,3 +31,17 @@ export const createUser = async (req: Request, res: Response) => {
     console.log(err);
   }
 };
+
+// delete a user
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    console.log("DELETE:/user");
+    const result = await User.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      staus: "Success",
+    });
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+};
