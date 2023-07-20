@@ -1,11 +1,16 @@
-import expess from "express";
+import express from "express";
 import postRouter from "./routes/post";
 import tagRouter from "./routes/tag";
 import userRouter from "./routes/user";
 import authRouter from "./routes/authentication";
+import authMiddleware from "./middlewares/authMiddleware";
 
-const app = expess();
-app.use(expess.json());
+const app = express();
+
+// global middleware
+app.use(express.json());
+app.use(authMiddleware);
+
 app.use("/auth", authRouter);
 app.use("/post", postRouter);
 app.use("/tag", tagRouter);

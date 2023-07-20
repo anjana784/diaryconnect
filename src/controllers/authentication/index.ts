@@ -98,12 +98,28 @@ export const login = async (req: Request, res: Response) => {
       // if password is invalid send the error
       if (match) {
         // if passowrd is valid send a token to the client
+
+        // create a token
+        const token = jwt.sign(
+          {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            roll: user.role,
+          },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "1d",
+          }
+        );
+
         res.status(200).send({
           ...responseObject,
           status: "login successfull",
           data: {
             username: user.username,
             email: user.email,
+            token,
           },
         });
       } else {
