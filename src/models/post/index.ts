@@ -38,8 +38,14 @@ const postSchema = new Schema<postType>({
     type: String,
     required: [true, "Content is required"],
   },
-  tags: [tagSchema],
-  comments: [commentSchema],
+  tags: {
+    type: [tagSchema],
+    required: false,
+  },
+  comments: {
+    type: [commentSchema],
+    required: false,
+  },
 });
 
 const Post = model<postType>("Post", postSchema);

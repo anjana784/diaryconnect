@@ -50,7 +50,7 @@ export const signUp = async (req: Request, res: Response) => {
           id: newUser._id,
           username: newUser.username,
           email: newUser.email,
-          roll: newUser.role,
+          role: newUser.role,
         },
         process.env.JWT_SECRET,
         {
@@ -105,7 +105,7 @@ export const login = async (req: Request, res: Response) => {
             id: user._id,
             username: user.username,
             email: user.email,
-            roll: user.role,
+            role: user.role,
           },
           process.env.JWT_SECRET,
           {
