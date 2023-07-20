@@ -2,6 +2,7 @@ import { randomBytes } from "crypto";
 import { Request, Response } from "express";
 import * as bcrypt from "bcrypt";
 import User from "./../../models/user";
+import responseObject from "./../../utils/responseObject";
 
 // signup
 export const signUp = async (req: Request, res: Response) => {
@@ -29,9 +30,11 @@ export const signUp = async (req: Request, res: Response) => {
 
     // send final response
     res.status(200).send({
-      status: "user was created",
+      ...responseObject,
+      status: "login successfull",
       data: {
-        user,
+        username: user.username,
+        email: user.email,
       },
     });
   } catch (err) {
@@ -41,22 +44,62 @@ export const signUp = async (req: Request, res: Response) => {
 
 // login
 export const login = async (req: Request, res: Response) => {
-  // get username or email and password from the request body
-  const { username, email, password } = req.body;
+  try {
+    // get username or email and password from the request body
+    const { username, email, password } = req.body;
 
-  let user;
+    let user;
 
-  // check the availabiliy from username
-  if (!email) {
-    user = await User.findOne({ username });
-    console.log(user.password);
+    // check the availabiliy from username or email
+    if (!email) {
+      user = await User.findOne({ username });
+    } else if (!username) {
+      user = await User.findOne({ email });
+      console.log(user);
+    }
 
-    // const validated = await bcrypt.compare(password, user.password);
-    // console.log(validated);
-  }
+    // // send error if username or email doesn't exist
+    if (user) {
+      // validate the password
+      const match = await bcrypt.compare(password, user.password);
 
-  // check availability from email
-  if (!username) {
-    user = await User.find({ email });
+      // if password is invalid send the error
+      if (match) {
+        // if passowrd is valid send a token to the client
+        res.status(200).send({
+          ...responseObject,
+          status: "login successfull",
+          data: {
+            username: user.username,
+            email: user.email,
+          },
+        });
+      } else {
+        res.status(401).send({
+          ...responseObject,
+          status: "incorrect password",
+          error: {
+            message: "invalid username or password",
+          },
+        });
+      }
+    } else {
+      res.status(401).send({
+        ...responseObject,
+        status: "username or email couldn't find",
+        error: {
+          message: "invalid username or password",
+        },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      ...responseObject,
+      status: "login unsuccessfull",
+      error: {
+        message: "internal server error",
+      },
+    });
   }
 };
