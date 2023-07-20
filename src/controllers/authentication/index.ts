@@ -10,33 +10,49 @@ export const signUp = async (req: Request, res: Response) => {
     // get username, email and password from the request body
     const { username, email, password } = req.body;
 
-    // genarate salt with 12 rounds
-    const salt = await bcrypt.genSalt(12);
-
-    // create hash from the plain password
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // generate verification token
-    const verificationToken = randomBytes(20).toString("hex");
-
-    // create a new user
-    const user = await User.create({
-      username,
-      email,
-      password: hashedPassword,
-      verified: false,
-      verificationToken,
+    // check if the username or email already exists
+    const user = await User.findOne({
+      $or: [{ username }, { email }],
     });
 
-    // send final response
-    res.status(200).send({
-      ...responseObject,
-      status: "login successfull",
-      data: {
-        username: user.username,
-        email: user.email,
-      },
-    });
+    // send error if username or email already exists
+    if (user) {
+      res.status(409).send({
+        ...responseObject,
+        status: "username or email already exists",
+        error: {
+          message: "username or email already exists",
+        },
+      });
+    } else {
+      // genarate salt with 12 rounds
+      const salt = await bcrypt.genSalt(12);
+
+      // create hash from the plain password
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      // generate verification token
+      const verificationToken = randomBytes(20).toString("hex");
+
+      // create a new user
+      const newUser = await User.create({
+        username,
+        email,
+        password: hashedPassword,
+        verified: false,
+        verificationToken,
+      });
+
+      // send final response
+      res.status(200).send({
+        ...responseObject,
+        status: "signup successfull",
+        data: {
+          username: newUser.username,
+          email: newUser.email,
+        },
+      });
+    }
   } catch (err) {
     console.log(err);
   }
