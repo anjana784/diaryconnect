@@ -29,6 +29,8 @@ export interface userType {
   email: string;
   password: string;
   roll: "user" | "admin";
+  verified: boolean;
+  verificationToken: string | null;
 }
 
 // comment type

@@ -20,6 +20,13 @@ export const userSchema = new Schema<userType>({
     type: String,
     default: "user",
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+  },
 });
 
 const User = model<userType>("User", userSchema);

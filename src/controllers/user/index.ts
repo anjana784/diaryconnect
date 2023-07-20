@@ -22,7 +22,14 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     console.log("POST:/user");
-    const result = await User.create(req.body);
+    const { username, email, password } = req.body;
+    const result = await User.create({
+      username,
+      email,
+      password,
+      verified: true,
+      verificationToken: null,
+    });
     res.status(200).json({
       staus: "Success",
     });
