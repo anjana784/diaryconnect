@@ -16,7 +16,7 @@ export const userSchema = new Schema<userType>({
     required: [true, "Email is required"],
     unique: true,
   },
-  roll: {
+  role: {
     type: String,
     default: "user",
   },

@@ -28,7 +28,7 @@ export interface userType {
   username: string;
   email: string;
   password: string;
-  roll: "user" | "admin";
+  role: "user" | "admin";
   verified: boolean;
   verificationToken: string | null;
 }

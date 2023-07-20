@@ -1,8 +1,9 @@
-import { randomBytes } from "crypto";
+import * as crypto from "crypto";
 import { Request, Response } from "express";
 import * as bcrypt from "bcrypt";
 import User from "./../../models/user";
 import responseObject from "./../../utils/responseObject";
+import * as jwt from "jsonwebtoken";
 
 // signup
 export const signUp = async (req: Request, res: Response) => {
@@ -32,7 +33,7 @@ export const signUp = async (req: Request, res: Response) => {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       // generate verification token
-      const verificationToken = randomBytes(20).toString("hex");
+      const verificationToken = crypto.randomBytes(20).toString("hex");
 
       // create a new user
       const newUser = await User.create({
@@ -43,6 +44,20 @@ export const signUp = async (req: Request, res: Response) => {
         verificationToken,
       });
 
+      // create a token
+      const token = jwt.sign(
+        {
+          id: newUser._id,
+          username: newUser.username,
+          email: newUser.email,
+          roll: newUser.role,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1d",
+        }
+      );
+
       // send final response
       res.status(200).send({
         ...responseObject,
@@ -50,6 +65,7 @@ export const signUp = async (req: Request, res: Response) => {
         data: {
           username: newUser.username,
           email: newUser.email,
+          token,
         },
       });
     }
