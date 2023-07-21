@@ -5,11 +5,6 @@ import { commentType } from "utils/types";
 export const commentSchema = new Schema<commentType>({
   user: userSchema,
   content: String,
-  date: {
-    year: Number,
-    month: String,
-    date: Number,
-  },
 });
 
 const Comment = model<commentType>("Comment", commentSchema);

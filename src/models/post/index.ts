@@ -18,22 +18,6 @@ const postSchema = new Schema<postType>({
     type: String,
     default: "anjana784",
   },
-  published: {
-    type: {
-      year: Number,
-      month: String,
-      date: Number,
-    },
-    required: [true, "Published date is required"],
-  },
-  lastUpdated: {
-    type: {
-      year: Number,
-      month: String,
-      date: Number,
-    },
-    required: [true, "Last updated date is required"],
-  },
   content: {
     type: String,
     required: [true, "Content is required"],
