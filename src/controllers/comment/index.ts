@@ -1,10 +1,10 @@
-import type { Request, Response } from "express";
+import type { RequestHandler } from "express";
 import Comment from "./../../models/comment";
 import Post from "./../../models/post";
 import User from "./../../models/user";
 
 // post a comment
-export const postComment = async (req: Request, res: Response) => {
+export const postComment: RequestHandler = async (req, res) => {
   try {
     console.log("POST:/post/:id/comment");
     // get username and comment from req.body
@@ -40,7 +40,7 @@ export const postComment = async (req: Request, res: Response) => {
 };
 
 // update a comment
-export const updateComment = async (req: Request, res: Response) => {
+export const updateComment: RequestHandler = async (req, res) => {
   try {
     console.log("PUT:/post/:id/comment/:commentId");
 
@@ -61,7 +61,7 @@ export const updateComment = async (req: Request, res: Response) => {
 };
 
 // delete a comment
-export const deleteComment = async (req: Request, res: Response) => {
+export const deleteComment: RequestHandler = async (req, res) => {
   try {
     console.log("DELETE:/post/:id/comment/:commentId");
 

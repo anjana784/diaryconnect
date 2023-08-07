@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
+import type { RequestHandler } from "express";
 import * as jwt from "jsonwebtoken";
 
-const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const authMiddleware: RequestHandler = (req, res, next) => {
   // get token from the request headers
   const { authorization } = req.headers;
 

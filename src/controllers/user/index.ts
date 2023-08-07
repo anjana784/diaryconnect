@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import type { RequestHandler } from "express";
 import User from "./../../models/user";
 import responseObject from "./../../utils/responseObject";
 import * as bcrypt from "bcrypt";
 import * as crypto from "crypto";
 
 // get all users
-export const getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers: RequestHandler = async (req, res) => {
   try {
     console.log("GET:/user");
     const users = await User.find({});
@@ -22,7 +22,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 // create a user
-export const createUser = async (req: Request, res: Response) => {
+export const createUser: RequestHandler = async (req, res) => {
   try {
     // get username, email and password from the request body
     const { username, email, password, role } = req.body;
@@ -87,7 +87,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 // delete a user
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser: RequestHandler = async (req, res) => {
   try {
     console.log("DELETE:/user");
     const result = await User.findByIdAndDelete(req.params.id);

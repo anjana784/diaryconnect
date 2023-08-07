@@ -1,8 +1,8 @@
-import type { Request, Response } from "express";
+import type { RequestHandler } from "express";
 import Tag from "./../../models/tag";
 
 // get all tags
-export const getAllTags = async (req: Request, res: Response) => {
+export const getAllTags: RequestHandler = async (req, res) => {
   try {
     console.log("GET:/tag");
     const tags = await Tag.find({});
@@ -19,7 +19,7 @@ export const getAllTags = async (req: Request, res: Response) => {
 };
 
 // get a tag
-export const getTag = async (req: Request, res: Response) => {
+export const getTag: RequestHandler = async (req, res) => {
   try {
     console.log("GET:/tag/:id");
     const tag = await Tag.findById(req.params.id);
@@ -35,7 +35,7 @@ export const getTag = async (req: Request, res: Response) => {
 };
 
 // create a tag
-export const createTag = async (req: Request, res: Response) => {
+export const createTag: RequestHandler = async (req, res) => {
   try {
     console.log("POST:/tag");
     const result = await Tag.create(req.body);
@@ -49,7 +49,7 @@ export const createTag = async (req: Request, res: Response) => {
 };
 
 // update a tag
-export const updateTag = async (req: Request, res: Response) => {
+export const updateTag: RequestHandler = async (req, res) => {
   try {
     console.log("PATCH:/tag/:id");
     const result = await Tag.findByIdAndUpdate(req.params.id, req.body, {
@@ -66,7 +66,7 @@ export const updateTag = async (req: Request, res: Response) => {
 
 // delete a tag
 
-export const deleteTag = async (req: Request, res: Response) => {
+export const deleteTag: RequestHandler = async (req, res) => {
   try {
     console.log("DELETE:/tag/:id");
     await Tag.findByIdAndDelete(req.params.id);

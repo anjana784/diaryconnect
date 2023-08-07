@@ -1,12 +1,12 @@
 import * as crypto from "crypto";
-import { Request, Response } from "express";
+import type { RequestHandler } from "express";
 import * as bcrypt from "bcrypt";
 import User from "./../../models/user";
 import responseObject from "./../../utils/responseObject";
 import * as jwt from "jsonwebtoken";
 
 // signup
-export const signUp = async (req: Request, res: Response) => {
+export const signUp: RequestHandler = async (req, res) => {
   try {
     // get username, email and password from the request body
     const { username, email, password } = req.body;
@@ -75,7 +75,7 @@ export const signUp = async (req: Request, res: Response) => {
 };
 
 // login
-export const login = async (req: Request, res: Response) => {
+export const login: RequestHandler = async (req, res) => {
   try {
     // get username or email and password from the request body
     const { username, email, password } = req.body;

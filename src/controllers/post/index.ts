@@ -1,8 +1,8 @@
-import type { Request, Response } from "express";
+import type { RequestHandler } from "express";
 import Post from "./../../models/post";
 
 // get all posts
-export const getAllPosts = async (req: Request, res: Response) => {
+export const getAllPosts: RequestHandler = async (req, res) => {
   try {
     const posts = await Post.find({});
     res.status(200).json({
@@ -24,7 +24,7 @@ export const getAllPosts = async (req: Request, res: Response) => {
 };
 
 // get a post
-export const getPost = async (req: Request, res: Response) => {
+export const getPost: RequestHandler = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     res.status(200).json({
@@ -40,7 +40,7 @@ export const getPost = async (req: Request, res: Response) => {
 };
 
 // create a post
-export const createPost = async (req: Request, res: Response) => {
+export const createPost: RequestHandler = async (req, res) => {
   try {
     // check if the user is admin
     if (req.user && req.user.role === "admin") {
@@ -75,7 +75,7 @@ export const createPost = async (req: Request, res: Response) => {
 };
 
 // update a post
-export const updatePost = async (req: Request, res: Response) => {
+export const updatePost: RequestHandler = async (req, res) => {
   try {
     console.log("PATCH:/post/:id");
     res.status(200).json({
@@ -87,7 +87,7 @@ export const updatePost = async (req: Request, res: Response) => {
 };
 
 // delete a post
-export const deletePost = async (req: Request, res: Response) => {
+export const deletePost: RequestHandler = async (req, res) => {
   try {
     console.log("DELETE:/post/:id");
     res.status(200).json({
