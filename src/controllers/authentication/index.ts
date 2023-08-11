@@ -4,6 +4,7 @@ import * as bcrypt from "bcrypt";
 import User from "./../../models/user";
 import responseObject from "./../../utils/responseObject";
 import * as jwt from "jsonwebtoken";
+import errorHandler from "./../../middlewares/errorHandler";
 
 // signup
 export const signUp: RequestHandler = async (req, res) => {
@@ -91,10 +92,9 @@ export const login: RequestHandler = async (req, res) => {
       user = await User.findOne({ username });
     } else if (!username) {
       user = await User.findOne({ email });
-      console.log(user);
     }
 
-    // // send error if username or email doesn't exist
+    // send error if username or email doesn't exist
     if (user) {
       // validate the password
       const match = await bcrypt.compare(password, user.password);

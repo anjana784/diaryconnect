@@ -29,3 +29,12 @@ export interface commentType {
   user: userType;
   content: string;
 }
+
+// response object type
+
+// error type
+export interface appErrorType {
+  statusCode: number;
+  type: string;
+  message: string;
+}
