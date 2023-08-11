@@ -6,6 +6,7 @@ import responseObject from "./../../utils/responseObject";
 import * as jwt from "jsonwebtoken";
 import errorHandler from "./../../middlewares/errorHandler";
 import { disconnect } from "./../../utils/database";
+import sendEmail from "./../../utils/sendEmail";
 
 // signup
 export const signUp: RequestHandler = async (req, res) => {
@@ -52,7 +53,7 @@ export const signUp: RequestHandler = async (req, res) => {
         verificationToken,
       });
 
-      disconnect();
+      await disconnect();
 
       // create a token
       const token = jwt.sign(
@@ -78,6 +79,13 @@ export const signUp: RequestHandler = async (req, res) => {
           token,
         },
       });
+
+      // send welcome email
+      await sendEmail(
+        newUser.email,
+        "Welcome to the community",
+        `<h1>Hi ${newUser.username}</h1>`
+      );
     }
   } catch (err) {
     errorHandler(
