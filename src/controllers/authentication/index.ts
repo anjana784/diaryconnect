@@ -111,8 +111,14 @@ export const login: RequestHandler = async (req, res) => {
     // check the availabiliy from username or email
     if (!email) {
       user = await User.findOne({ username });
+
+      // disconnect from the database
+      await disconnect();
     } else if (!username) {
       user = await User.findOne({ email });
+
+      // disconnect from the database
+      await disconnect();
     }
 
     if (user) {
@@ -175,7 +181,7 @@ export const login: RequestHandler = async (req, res) => {
     errorHandler(
       {
         statusCode: 500,
-        message: "internal server error",
+        message: err.message,
         type: "internal",
       },
       req,
