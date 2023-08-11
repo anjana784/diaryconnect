@@ -13,3 +13,12 @@ export const connect = async () => {
     console.log(error);
   }
 };
+
+export const disconnect = async () => {
+  try {
+    await mongoose.disconnect();
+    console.log("Disconnected from MongoDB");
+  } catch (error) {
+    console.log(error);
+  }
+};
