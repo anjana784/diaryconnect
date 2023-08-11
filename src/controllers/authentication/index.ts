@@ -9,7 +9,11 @@ import * as jwt from "jsonwebtoken";
 export const signUp: RequestHandler = async (req, res) => {
   try {
     // get username, email and password from the request body
-    const { username, email, password } = req.body;
+    const { username, email, password } = req.body as {
+      username: string;
+      email: string;
+      password: string;
+    };
 
     // check if the username or email already exists
     const user = await User.findOne({
