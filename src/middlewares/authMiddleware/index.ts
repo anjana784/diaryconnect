@@ -65,7 +65,7 @@ const authMiddleware: RequestHandler = (req, res, next) => {
           {
             statusCode: 500,
             type: "Internal Server Error",
-            message: "An error occurred",
+            message: error.message,
           },
           req,
           res

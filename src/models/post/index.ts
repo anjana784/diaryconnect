@@ -14,17 +14,29 @@ const postSchema = new Schema<postType>({
     required: [true, "Slug is required"],
     unique: true,
   },
+  metaTitle: {
+    type: String,
+    required: [true, "Meta title is required"],
+  },
+  metaDescription: {
+    type: String,
+    required: [true, "Meta description is required"],
+  },
   author: {
     type: String,
     default: "anjana784",
+  },
+  featuredImage: {
+    type: String,
+    required: [true, "Featured image is required"],
   },
   content: {
     type: String,
     required: [true, "Content is required"],
   },
   tags: {
-    type: [tagSchema],
-    required: false,
+    type: [String],
+    required: [true, "Tags are required"],
   },
   comments: {
     type: [commentSchema],

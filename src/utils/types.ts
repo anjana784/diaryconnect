@@ -8,9 +8,12 @@ export interface tagType {
 export interface postType {
   title: string;
   slug: string;
+  metaTitle: string;
+  metaDescription: string;
   author: string;
+  featuredImage: string;
   content: string;
-  tags: tagType[];
+  tags: string[];
   comments: commentType[];
 }
 
