@@ -111,14 +111,8 @@ export const login: RequestHandler = async (req, res) => {
     // check the availabiliy from username or email
     if (!email) {
       user = await User.findOne({ username });
-
-      // disconnect from the database
-      await disconnect();
     } else if (!username) {
       user = await User.findOne({ email });
-
-      // disconnect from the database
-      await disconnect();
     }
 
     if (user) {
@@ -152,6 +146,9 @@ export const login: RequestHandler = async (req, res) => {
             token,
           },
         });
+
+        // disconnect from the database
+        await disconnect();
       } else {
         // send error if password is invalid
         errorHandler(
